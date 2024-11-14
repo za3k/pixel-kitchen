@@ -2,10 +2,19 @@ const game = $("#game")
 
 function randChoice(array) { return array[Math.floor(Math.random()*array.length)] }
 
+function range(min, max) {
+    var numbers = []
+    for (var i=0; i<100; i++) numbers.push(i)
+    return numbers
+}
+
 async function loadSprites() {
-    const sprites = await Sprites.loadAll("assets/food1_64.png", 64);
-    for (var i=0; i<100; i++) sprites.push(await Sprites.load(`assets/food2_64/${i}.png`));
-    for (var i=0; i<100; i++) sprites.push(await Sprites.load(`assets/food3_64/${i}.png`));
+    // Load sprites asynchronously
+    const sprites = [].concat(... await Promise.all([
+        Sprites.loadAll("assets/food1_64.png", 64),
+        Promise.all(range(0, 100).map((i) => Sprites.load(`assets/food2_64/${i}.png`))),
+        Promise.all(range(0, 100).map((i) => Sprites.load(`assets/food3_64/${i}.png`))),
+    ]))
 
     sprites.forEach((sprite, i) => {
         const unused = $(`<div class="unused"><span class="label">${i}</span></div>`)
