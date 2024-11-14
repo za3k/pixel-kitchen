@@ -228,10 +228,10 @@ async function main() {
     recipe(slicer.slots, [item("pizza")], [item("pizza"), item("pizzaSlice")])
     recipe(slicer.slots, [item("blueberryPie")], [item("blueberryPie"), item("blueberryPieSlice")])
 
-    const assembler = s2.machine("assembly table", 2)
+    const assembler = s2.machine("assembly table", 3)
     recipe(assembler.slots, [item("breadSlice"), item("breadSlice")], [item("burger")])
     recipe(assembler.slots, [item("dough"), item("blueberry")], [item("blueberryPie")])
-    recipe(assembler.slots, [item("dough"), item("tomatoSauce")], [item("pizza")])
+    recipe(assembler.slots, [item("dough"), item("tomatoSauce"), item("cheese")], [item("pizza")])
     recipe(assembler.slots, [item("blueberry"), item("milk")], [item("iceCream")])
 
 
