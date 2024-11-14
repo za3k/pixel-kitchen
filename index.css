@@ -112,3 +112,36 @@ footer {
 }
 
 .recent-change { border-color: black; }
+
+.customer {
+    animation-name: warn;
+    animation-timing-function: ease-in; 
+    animation-duration: 60s;
+    animation-fill-mode: forwards;
+}
+    
+@keyframes warn {
+    0% { background-color: rgba(255, 0, 0, 0); }
+    50% { background-color: rgba(255, 0, 0, 0); }
+    100% { background-color: rgba(255, 0, 0, 1); }
+}
+
+#lose {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    font-size: 70pt;
+    background: white;
+    border: 2px solid;
+    padding: 2em;
+}
+
+#score {
+    top: 10px;
+    right: 10px;
+    position: fixed;
+    font-size: 30pt;
+    background: white;
+    padding: .4em;
+}

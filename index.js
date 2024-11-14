@@ -175,11 +175,21 @@ function item(thing) {
     return r
 }
 
+function lose() {
+    $("#lose").show()
+    $(".draggable").removeClass("draggable")
+    $(".customer").css("animation-play-state", "paused")
+    clearInterval(t1)
+}
+
 var sprites;
 async function main() {
     sprites = await loadSprites();
     
     const s1 = section()
+    var difficulty = 60
+    var newCustomer = 30
+    var score = 0
     function addCustomer() {
         const possibleOrders = [
             item("milk"),
@@ -203,17 +213,24 @@ async function main() {
         customer.slots[0].setItem(order)
         customer.slots[0].item.e.removeClass("draggable")
         customer.slots[0].e.addClass("fixed")
+        customer.e.addClass("customer")
+        customer.patience = customer.maxPatience = difficulty
+        customer.e.css("animation-duration", `${customer.maxPatience}s`)
+        const t2 = setTimeout(lose, customer.patience*1000)
 
         customer.slots[1].onChange(function() {
             if (this.item && this.item.equals(order)) {
                 customer.remove()
                 addCustomer()
+                difficulty *= 0.9
+                clearTimeout(t2)
+                score++
+                $("#score").text(`Score: ${score}`)
             }
         })
     }
     addCustomer()
-    addCustomer()
-    addCustomer()
+    t1 = setInterval(addCustomer, newCustomer*1000)
 
     const s2 = section()
     const prep = s2.machine("prep station", 1)
@@ -228,8 +245,8 @@ async function main() {
     recipe(slicer.slots, [item("pizza")], [item("pizza"), item("pizzaSlice")])
     recipe(slicer.slots, [item("blueberryPie")], [item("blueberryPie"), item("blueberryPieSlice")])
 
-    const assembler = s2.machine("assembly table", 3)
-    recipe(assembler.slots, [item("breadSlice"), item("breadSlice")], [item("burger")])
+    const assembler = s2.machine("assembly table", 5)
+    recipe(assembler.slots, [item("breadSlice"), item("breadSlice"), item("bacon"), item("lettuce"), item("tomato")], [item("burger")])
     recipe(assembler.slots, [item("dough"), item("blueberry")], [item("blueberryPie")])
     recipe(assembler.slots, [item("dough"), item("tomatoSauce"), item("cheese")], [item("pizza")])
     recipe(assembler.slots, [item("blueberry"), item("milk")], [item("iceCream")])
@@ -251,7 +268,7 @@ async function main() {
     pantryItems = [
         item("emptyCup"),
         item("bacon"),
-        //item("lettuce"),
+        item("lettuce"),
         item("tomato"),
         item("cheese"),
         item("dough"),
