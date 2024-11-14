@@ -252,7 +252,7 @@ async function main() {
         item("emptyCup"),
         item("bacon"),
         //item("lettuce"),
-        //item("tomato"),
+        item("tomato"),
         item("cheese"),
         item("dough"),
         item("milk"),
