@@ -1,0 +1,114 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#game {
+    flex: 1;
+    position: relative;
+}
+
+footer {
+    flex: 0;
+    padding: 1rem;
+    font-family: monospace;
+    border-top: 1px solid grey;
+    background: rgba(0, 0, 0, .04);
+}
+
+.sprite {
+    display: inline-block;
+}
+
+#unused {
+    position: absolute;
+    bottom: 0;
+    display: none;
+}
+
+.unused {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: inline-block;
+}
+
+.unused .label {
+    position: absolute;
+    left: 0;
+    right: 30px;
+    top: 0px;
+    bottom: 40px;
+    border: 1px solid;
+    padding: 2px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section {
+    margin: 2rem;
+    display: flex;
+}
+
+.machine {
+    border: 1px solid black;
+    width: fit-content;
+    margin: 5px;
+    padding: 1rem;
+}
+
+.machine > .label {
+    margin: 5px;
+    font-size: 16pt;
+    display: block;
+}
+
+.slots {
+    height: 64px;
+    margin: 10px 0;
+    display: flex;
+}
+.slot > * {
+    flex: 0;
+}
+
+.slot {
+    border: 2px dashed lightgrey;
+    width: 64px;
+    height: 64px;
+    display: block;
+    margin: 0 10px;
+}
+
+.slot:has(.draggable):not(.drag-active):not(.drag-ghost):hover {
+    border-color: blue;
+}
+
+.drag-active {
+    opacity: 0.2;
+    position: fixed;
+}
+
+.drag-ghost {
+    opacity: 0.8;
+}
+
+.slot.drop-active {
+    border-color: blue;
+}
+
+.slot.fixed {
+    border: 0;
+}
+
+.recent-change { border-color: black; }
