@@ -179,7 +179,7 @@ function lose() {
     $("#lose").show()
     $(".draggable").removeClass("draggable")
     $(".customer").css("animation-play-state", "paused")
-    clearInterval(t1)
+    clearInterval(t0)
 }
 
 var sprites;
@@ -187,8 +187,8 @@ async function main() {
     sprites = await loadSprites();
     
     const s1 = section()
-    var difficulty = 60
-    var newCustomer = 30
+    var difficulty = 60000
+    var newCustomer = 30000
     var score = 0
     function addCustomer() {
         const possibleOrders = [
@@ -216,7 +216,13 @@ async function main() {
         customer.e.addClass("customer")
         customer.patience = customer.maxPatience = difficulty
         customer.e.css("animation-duration", `${customer.maxPatience}s`)
-        const t2 = setTimeout(lose, customer.patience*1000)
+        customer.e.append($(`<div class="timer"></div>`))
+        const updateFreq = 50
+        const t1 = setInterval(() => {
+            customer.patience -= updateFreq
+            customer.e.find(".timer").css("--patience", customer.patience/customer.maxPatience)
+        }, updateFreq)
+        const t2 = setTimeout(lose, customer.patience)
 
         customer.slots[1].onChange(function() {
             if (this.item && this.item.equals(order)) {
@@ -230,7 +236,7 @@ async function main() {
         })
     }
     addCustomer()
-    t1 = setInterval(addCustomer, newCustomer*1000)
+    t0 = setInterval(addCustomer, newCustomer)
 
     const s2 = section()
     const prep = s2.machine("prep station", 1)

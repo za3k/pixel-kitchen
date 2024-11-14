@@ -118,6 +118,18 @@ footer {
     animation-timing-function: ease-in; 
     animation-duration: 60s;
     animation-fill-mode: forwards;
+    position: relative;
+}
+
+.customer .timer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    height: 5px;
+    width: calc( var(--patience) * 100%);
+    background-color: lightgreen;
+
 }
     
 @keyframes warn {
